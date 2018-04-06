@@ -78,7 +78,22 @@ function pushbutton3_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+project_name = get(handles.edit1,'String');
+suggestion = strcat(project_name,'.cr');
+[filename, pathname] = uiputfile({'*.cr'},'Save Project',suggestion);
+file = fullfile(pathname,filename);
+filepath_database = get(handles.edit2,'String');
+[x, filename, ext] = fileparts(filepath_database);
+csvwrite(strcat(pathname, filename, ext), handles.fileData);
+contents = get(handles.popupmenu1,'String'); 
+type = contents{get(handles.popupmenu1,'Value')};
+traffic_level = get(get(handles.uibuttongroup1,'SelectedObject'),'String');
+fileID = fopen(file,'w');
+fprintf(fileID,'%s\n',project_name);
+fprintf(fileID,'%s\n',filename);
+fprintf(fileID,'%s\n',type);
+fprintf(fileID,'%s\n',traffic_level);
+fclose(fileID);
 
 
 function edit4_Callback(hObject, eventdata, handles)
@@ -245,6 +260,3 @@ function pushbutton4_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton4 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-project_name = get(handles.edit1,'String');
-project_name = strcat(project_name, '.cr');
-[filename, pathname] = uiputfile({'*.cr'}, 'Save Project', project_name);

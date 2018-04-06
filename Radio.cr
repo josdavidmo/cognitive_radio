@@ -1,4 +1,4 @@
 Radio
 test
-Wifi
+GSM
 Medium Traffic

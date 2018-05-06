@@ -22,7 +22,7 @@ function varargout = interface(varargin)
 
 % Edit the above text to modify the response to help interface
 
-% Last Modified by GUIDE v2.5 05-Apr-2018 07:08:03
+% Last Modified by GUIDE v2.5 06-May-2018 10:29:41
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -269,3 +269,117 @@ function pushbutton4_Callback(hObject,  eventdata,  handles)
 % hObject    handle to pushbutton4 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+
+function edit7_Callback(hObject, eventdata, handles)
+% hObject    handle to edit7 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit7 as text
+%        str2double(get(hObject,'String')) returns contents of edit7 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit7_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit7 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit8_Callback(hObject, eventdata, handles)
+% hObject    handle to edit8 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit8 as text
+%        str2double(get(hObject,'String')) returns contents of edit8 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit8_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit8 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function numberMF_e_Callback(hObject, eventdata, handles)
+% hObject    handle to numberMF_e (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of numberMF_e as text
+%        str2double(get(hObject,'String')) returns contents of numberMF_e as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function numberMF_e_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to numberMF_e (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function MFtype_e_Callback(hObject, eventdata, handles)
+% hObject    handle to MFtype_e (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of MFtype_e as text
+%        str2double(get(hObject,'String')) returns contents of MFtype_e as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function MFtype_e_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to MFtype_e (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in radiobutton4.
+function radiobutton4_Callback(hObject, eventdata, handles)
+% hObject    handle to radiobutton4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of radiobutton4
+set(handles.panelANFIS, 'Visible', 'off');
+set(handles.panelSVM, 'Visible', 'on');
+
+
+% --- Executes on button press in radiobutton5.
+function radiobutton5_Callback(hObject, eventdata, handles)
+% hObject    handle to radiobutton5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of radiobutton5
+set(handles.panelSVM, 'Visible', 'off');
+set(handles.panelANFIS, 'Visible', 'on');

@@ -1,31 +1,21 @@
-NumMf = 3;
-MfType = str2mat('pimf','pimf','pimf','trimf');
-results = [];
-numEpochs=20;
-currently_data= result_wifi(1:27550,:);
-colmin = min(currently_data);
-colmax = max(currently_data);
-train_data = rescale(currently_data,'InputMin',colmin,'InputMax',colmax);
-
-if isempty(gcp('nocreate'))
-    parpool('local', 2)
-end
-
-fid = fopen('log.txt','wt');
-
-parfor i = 1:5
-    start = (5510*(i-1))+1
-    fin = i*5510
-    data = train_data(start:fin,:);
-    fismat = genfis1(data, NumMf, MfType);
-    trndata = data(1:3857,:);
+function fis_mat = anfis_code(currently_data,NumMf,MfType,numEpochs,towers,records)
+    colmin = min(currently_data);
+    colmax = max(currently_data);
+    train_data = rescale(currently_data,'InputMin',colmin,'InputMax',colmax);
+    fid = fopen('log.txt','wt');
     
-    chkdata = data(3858:5510,:);
-    [fismat1,trnErr,ss,fismat2,chkErr]=anfis(trndata,fismat,numEpochs,NaN,chkdata);
-    fprintf(fid, 'ITERACION %d START %d LAST %d ERROR %d', i, start, fin, trnErr);
-    %results(i) = [fismat1,trnErr,ss,fismat2,chkErr];
-    results(i,:) = [start,fin]
+    parfor i = 1:towers
+        start = (records*(i-1))+1;
+        fin = i*records;
+        data = train_data(start:fin,:);
+        fismat = genfis1(data, NumMf, MfType);
+        trndata = data(1:3857,:);        
+        chkdata = data(3858:5510,:);
+        [fismat1,trnErr,ss,fismat2,chkErr]=anfis(trndata,fismat,numEpochs,NaN,chkdata);
+        fis_mat(i) = fismat1;
+        fprintf(fid, 'ITERACION %d START %d LAST %d ERROR %d', i, start, fin, trnErr);
+    end
+    delete(gcp('nocreate'));
+    fclose(fid);
 end
 
-delete(gcp('nocreate'));
-fclose(fid);

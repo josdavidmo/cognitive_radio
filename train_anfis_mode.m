@@ -15,8 +15,8 @@ function [fis_mat,start_a,last_a,trn_err,chk_err] = train_anfis_mode(currently_d
         fis_mat(i) = fismat1;
         start_a(i) = start;
         last_a(i) = last;
-        trn_err(i) = trnErr;
-        chk_err(i) = chkErr;
+        trn_err(i) = trnErr(numEpochs);
+        chk_err(i) = chkErr(numEpochs);
     end
     delete(gcp('nocreate'));
 end

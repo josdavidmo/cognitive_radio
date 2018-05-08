@@ -172,8 +172,12 @@ function pushbutton2_Callback(hObject,  eventdata,  handles)
 full_path = get(handles.edit2, 'String');
 file_data = csvread(full_path);
 num_towers = str2num(get(handles.edit7, 'String'));
-type_model = get(get(handles.uibuttongroup1, 'SelectedObject'), 'String');
-towers = train_svm_model(file_data, num_towers);
+type_model = get(get(handles.uibuttongroup2, 'SelectedObject'), 'String');
+if strcmp(type_model, 'SVM')
+    towers = train_svm_model(file_data, num_towers);
+else
+    towers = train_anfis_model(file_data, 3, str2mat('trimf','trimf','trimf','trimf'), 20, num_towers);
+end
 fprintf('tamaño %d\n', size(towers));
 
 function edit1_Callback(hObject,  eventdata,  handles)

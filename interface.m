@@ -169,17 +169,12 @@ function pushbutton2_Callback(hObject,  eventdata,  handles)
 % hObject    handle to pushbutton2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-addpath('libsvm');
 full_path = get(handles.edit2, 'String');
 file_data = csvread(full_path);
-labels = file_data(:,5);
-data = sparse(file_data(:,1:4));
-train_data = data(1:5000,:);
-train_label = labels(1:5000,:);
-model_linear = svmtrain(train_label, train_data, '-t 0');
-libsvmwrite('data.txt', labels, data);
-
-
+num_towers = str2num(get(handles.edit7, 'String'));
+type_model = get(get(handles.uibuttongroup1, 'SelectedObject'), 'String');
+towers = train_svm_model(file_data, num_towers);
+fprintf('tamaño %d\n', size(towers));
 
 function edit1_Callback(hObject,  eventdata,  handles)
 % hObject    handle to edit1 (see GCBO)

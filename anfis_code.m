@@ -3,7 +3,7 @@ function [fis_mat,index] = anfis_code(currently_data,NumMf,MfType,numEpochs,towe
     colmax = max(currently_data);
     train_data = rescale(currently_data,'InputMin',colmin,'InputMax',colmax);
     fid = fopen('log.txt','wt');
-    index = [];
+    index = [1 2 3 4 5];
     parfor i = 1:towers
         start = (records*(i-1))+1;
         fin = i*records;
@@ -13,9 +13,9 @@ function [fis_mat,index] = anfis_code(currently_data,NumMf,MfType,numEpochs,towe
         chkdata = data(records*0.7+1:records,:);
         [fismat1,trnErr,ss,fismat2,chkErr]=anfis(trndata,fismat,numEpochs,NaN,chkdata);
         fis_mat(i) = fismat1;
-        row = [i,start,fin,trnErr,chkErr];
-        index = [index;row];
-        fprintf(fid, 'ITERACION %d START %d LAST %d ERROR %d', i, start, fin, trnErr);
+        row = [i,start,fin,trnErr(numEpochs),chkErr(numEpochs)];
+        index(i) = row;
+        %fprintf(fid, 'ITERACION %d START %d LAST %d ERROR %d', i, start, fin, trnErr);
     end
     delete(gcp('nocreate'));
     fclose(fid);

@@ -176,7 +176,10 @@ type_model = get(get(handles.uibuttongroup2, 'SelectedObject'), 'String');
 if strcmp(type_model, 'SVM')
     towers = train_svm_model(file_data, num_towers);
 else
-    towers = train_anfis_model(file_data, 3, str2mat('trimf','trimf','trimf','trimf'), 20, num_towers);
+    NumMf = str2num(get(handles.numberMF_e, 'String'))    
+    MfType = str2mat(get(handles.MFtype_e,'String'))
+    epochs = str2num(get(handles.edit4, 'String'))
+    towers = train_anfis_mode(file_data, NumMf,MfType, epochs, num_towers);
 end
 fprintf('tamaño %d\n', size(towers));
 

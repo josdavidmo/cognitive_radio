@@ -1,4 +1,4 @@
-function [fis_mat,start_a,last_a,trn_err,chk_err] = train_anfis_mode(currently_data,NumMf,MfType,numEpochs,towers)
+function [fis_mat,trn_err,chk_err] = train_anfis_mode(currently_data,NumMf,MfType,numEpochs,towers)
     colmin = min(currently_data);
     colmax = max(currently_data);
     train_data = rescale(currently_data,'InputMin',colmin,'InputMax',colmax);
@@ -13,8 +13,6 @@ function [fis_mat,start_a,last_a,trn_err,chk_err] = train_anfis_mode(currently_d
         chkdata = data(batch_size*0.7+1:batch_size,:);
         [fismat1,trnErr,ss,fismat2,chkErr]=anfis(trndata,fismat,numEpochs,NaN,chkdata);
         fis_mat(i) = fismat1;
-        start_a(i) = start;
-        last_a(i) = last;
         trn_err(i) = trnErr(numEpochs);
         chk_err(i) = chkErr(numEpochs);
     end

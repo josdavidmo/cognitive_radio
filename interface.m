@@ -189,8 +189,12 @@ else
     MfType = char(split(erase(get(handles.MFtype_e,'String'),"'"),','))
     epochs = str2num(get(handles.edit12, 'String'))
     tic;
-    [fis_mat,trn_err,chk_err] = train_anfis_mode(file_data, NumMf,MfType, epochs, num_towers);
+    [fis_mat,trn_err,chk_err,output] = train_anfis_mode(file_data, NumMf,MfType, epochs, num_towers);
     time = toc;
+    set(handles.listbox1, 'String', trn_err);
+    set(handles.listbox2, 'String', output);
+    set(handles.edit15, 'String', time);
+    save('fis_mat');
 end
 
 function edit1_Callback(hObject,  eventdata,  handles)

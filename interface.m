@@ -186,9 +186,11 @@ if strcmp(type_model, 'SVM')
     set(handles.edit15, 'String', time);
 else
     NumMf = str2num(get(handles.numberMF_e, 'String'))    
-    MfType = str2mat(get(handles.MFtype_e,'String'))
-    epochs = str2num(get(handles.edit4, 'String'))
-    towers = train_anfis_mode(file_data, NumMf,MfType, epochs, num_towers);
+    MfType = char(split(erase(get(handles.MFtype_e,'String'),"'"),','))
+    epochs = str2num(get(handles.edit12, 'String'))
+    tic;
+    [fis_mat,trn_err,chk_err] = train_anfis_mode(file_data, NumMf,MfType, epochs, num_towers);
+    time = toc;
 end
 
 function edit1_Callback(hObject,  eventdata,  handles)

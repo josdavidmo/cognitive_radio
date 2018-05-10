@@ -191,8 +191,8 @@ else
     tic;
     [fis_mat,trn_err,chk_err,output] = train_anfis_mode(file_data, NumMf,MfType, epochs, num_towers);
     time = toc;
-    set(handles.listbox1, 'String', trn_err);
-    set(handles.listbox2, 'String', output);
+    set(handles.listbox1, 'String', output);
+    set(handles.listbox2, 'String', trn_err);
     set(handles.edit15, 'String', time);
     save('fis_mat');
 end

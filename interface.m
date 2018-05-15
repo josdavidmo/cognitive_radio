@@ -22,7 +22,7 @@ function varargout = interface(varargin)
 
 % Edit the above text to modify the response to help interface
 
-% Last Modified by GUIDE v2.5 09-May-2018 16:38:18
+% Last Modified by GUIDE v2.5 14-May-2018 11:44:04
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -179,10 +179,10 @@ if strcmp(type_model, 'SVM')
     cost = get(handles.edit14, 'String');
     options = sprintf('-s %d -t %d -c %s -q', svm_type, kernel_type, cost);
     tic;
-    [towers, accuracy1, accuracy2] = train_svm_model(file_data, num_towers, options);
+    [towers, accuracy, error] = train_svm_model(file_data, num_towers, options);
     time = toc;
-    set(handles.listbox1, 'String', accuracy1);
-    set(handles.listbox2, 'String', accuracy2);
+    set(handles.listbox1, 'String', accuracy);
+    set(handles.listbox2, 'String', error);
     set(handles.edit15, 'String', time);
 else
     NumMf = str2num(get(handles.numberMF_e, 'String'))    
@@ -602,3 +602,12 @@ function listbox2_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --- Executes on button press in pushbutton5.
+function pushbutton5_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+message = sprintf('The availables functions are:\n \t trimf\n \t trapmf\n \t gaussmf\n \t gauss2mf\n \t gbellmf\n \t sigmf\n \t dsigmf\n \t psigmf\n \t zmf\n \t pimf\n \t smf\n');
+msgbox(message,'Available Functions');

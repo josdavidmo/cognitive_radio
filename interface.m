@@ -22,7 +22,7 @@ function varargout = interface(varargin)
 
 % Edit the above text to modify the response to help interface
 
-% Last Modified by GUIDE v2.5 14-May-2018 11:44:04
+% Last Modified by GUIDE v2.5 08-Aug-2018 21:03:11
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -173,13 +173,14 @@ full_path = get(handles.edit2, 'String');
 file_data = csvread(full_path);
 num_towers = str2num(get(handles.edit7, 'String'));
 type_model = get(get(handles.uibuttongroup2, 'SelectedObject'), 'String');
+random_distribution = get(handles.radiobutton6,'Value');
 if strcmp(type_model, 'SVM')
     svm_type = get(handles.popupmenu2, 'Value') - 1;
     kernel_type = get(handles.popupmenu3, 'Value') - 1;
     cost = get(handles.edit14, 'String');
     options = sprintf('-s %d -t %d -c %s -q', svm_type, kernel_type, cost);
     tic;
-    [towers, accuracy, error] = train_svm_model(file_data, num_towers, options);
+    [towers, accuracy, error] = train_svm_model(file_data, num_towers, options,random_distribution);
     time = toc;
     set(handles.listbox1, 'String', accuracy);
     set(handles.listbox2, 'String', error);
@@ -189,7 +190,7 @@ else
     MfType = char(split(erase(get(handles.MFtype_e,'String'),"'"),','))
     epochs = str2num(get(handles.edit12, 'String'))
     tic;
-    [fis_mat,trn_err,chk_err,output] = train_anfis_mode(file_data, NumMf,MfType, epochs, num_towers);
+    [fis_mat,trn_err,chk_err,output] = train_anfis_mode(file_data, NumMf,MfType, epochs, num_towers,random_distribution);
     time = toc;
     set(handles.listbox1, 'String', output);
     set(handles.listbox2, 'String', trn_err);
@@ -615,3 +616,12 @@ function pushbutton5_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 message = sprintf('The availables functions are:\n \t trimf\n \t trapmf\n \t gaussmf\n \t gauss2mf\n \t gbellmf\n \t sigmf\n \t dsigmf\n \t psigmf\n \t zmf\n \t pimf\n \t smf\n');
 msgbox(message,'Available Functions');
+
+
+% --- Executes on button press in radiobutton6.
+function radiobutton6_Callback(hObject, eventdata, handles)
+% hObject    handle to radiobutton6 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of radiobutton6

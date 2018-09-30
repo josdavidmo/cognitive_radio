@@ -22,7 +22,7 @@ function varargout = interface(varargin)
 
 % Edit the above text to modify the response to help interface
 
-% Last Modified by GUIDE v2.5 08-Aug-2018 21:03:11
+% Last Modified by GUIDE v2.5 29-Sep-2018 18:14:43
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -180,21 +180,23 @@ if strcmp(type_model, 'SVM')
     cost = get(handles.edit14, 'String');
     options = sprintf('-s %d -t %d -c %s -q', svm_type, kernel_type, cost);
     tic;
-    [towers, accuracy, error] = train_svm_model(file_data, num_towers, options,random_distribution);
+    [towers, accuracy, error,text] = train_svm_model(file_data, num_towers, options,random_distribution);
     time = toc;
     set(handles.listbox1, 'String', accuracy);
     set(handles.listbox2, 'String', error);
     set(handles.edit15, 'String', time);
+    set(handles.edit18, 'String', text);
 else
     NumMf = str2num(get(handles.numberMF_e, 'String'))    
     MfType = char(split(erase(get(handles.MFtype_e,'String'),"'"),','))
     epochs = str2num(get(handles.edit12, 'String'))
     tic;
-    [fis_mat,trn_err,chk_err,output] = train_anfis_mode(file_data, NumMf,MfType, epochs, num_towers,random_distribution);
+    [fis_mat,trn_err,chk_err,output,text] = train_anfis_mode(file_data, NumMf,MfType, epochs, num_towers,random_distribution);
     time = toc;
     set(handles.listbox1, 'String', output);
     set(handles.listbox2, 'String', trn_err);
     set(handles.edit15, 'String', time);
+    set(handles.edit18, 'String', text);
     save('fis_mat');
 end
 
@@ -625,3 +627,26 @@ function radiobutton6_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of radiobutton6
+
+
+
+function edit18_Callback(hObject, eventdata, handles)
+% hObject    handle to edit18 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit18 as text
+%        str2double(get(hObject,'String')) returns contents of edit18 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit18_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit18 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end

@@ -1,4 +1,4 @@
-function [fis_mat,trn_err,chk_err,output] = train_anfis_mode(currently_data,NumMf,MfType,numEpochs,towers,random_distribution)
+function [fis_mat,trn_err,chk_err,output,text] = train_anfis_mode(currently_data,NumMf,MfType,numEpochs,towers,random_distribution)
     addpath('progress');
     colmin = min(currently_data);
     colmax = max(currently_data);
@@ -7,11 +7,12 @@ function [fis_mat,trn_err,chk_err,output] = train_anfis_mode(currently_data,NumM
     opt.InputMembershipFunctionType = MfType;
     train_data = rescale(currently_data,'InputMin',colmin,'InputMax',colmax);
     data_size = size(train_data);
-    batch_array = distribution_towers(data_size(1),num_towers,random_distribution);
+    [batch_array,text] = distribution_towers(data_size(1),towers,random_distribution);
     hbar = parfor_progressbar(towers,'Training Models');
     parfor i = 1:towers
         start = batch_array(i);
         last = batch_array(i+1)-1;
+        batch_size = last-start;
         data = train_data(start:last,:);
         fismat = genfis(data(:,1:4), data(:,5), opt);
         trndata = data(1:batch_size*0.8,:);        

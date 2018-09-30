@@ -1,4 +1,4 @@
-function [towers, accuracy, error] = train_svm_model(file_data, num_towers, options,random_distribution)
+function [towers, accuracy, error,text] = train_svm_model(file_data, num_towers, options,random_distribution)
     addpath('progress');
     addpath('libsvm');
     labels = file_data(:,5);
@@ -7,7 +7,8 @@ function [towers, accuracy, error] = train_svm_model(file_data, num_towers, opti
     train_data = data;
     train_label = labels;
     data_size = size(file_data);
-    batch_array = distribution_towers(data_size(1),num_towers,random_distribution)
+    [batch_array,text] = distribution_towers(data_size(1),num_towers,random_distribution)
+    
     hbar = parfor_progressbar(num_towers,'Training Models');
     parfor i = 1:num_towers     
         start = batch_array(i);
